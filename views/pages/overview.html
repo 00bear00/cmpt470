@@ -1,0 +1,89 @@
+<div class="page-container clearfix">
+
+    <div class="left-container">
+
+        <div class="container-header">
+            <div class="filter">
+                <div class="filter-name">
+                    {{filter_team_name}}
+                    <i class="material-icons drop-down">expand_more</i>
+                </div>
+                <div class="filter-options">
+                    <a ng-click="selectFilter('')">All Teams</a>
+                    <a ng-repeat="team in teams"
+                       ng-click="selectFilter(team.id, team.name)"
+                       ng-class="{'selected': team.id==filter_team_id}">
+                        {{team.name}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <ul id="news-list">
+            <li class="list clearfix" ng-show="news.length==0">
+                <span class="name">
+                There is no news for now.
+                </span>
+            </li>
+            <li class="list clearfix"
+                ng-repeat="item in news | orderBy : '-time_in_mili'  | filter: filterTeam | limitTo: limit_news">
+                <div class="list-content">
+                    <span class="name">
+                        {{item.user_nickname}}&nbsp
+                    </span>
+                    {{item.action_name}} a
+                    <a class="link" ng-click="goToPage(item.action_target, item.target_team_id)">
+                        {{item.action_target}}
+                    </a>
+                    {{item.action_name | action}}
+                    <span class="team">
+                        {{item.target_team}}
+                    </span>
+                    <span>
+                    <md-tooltip md-direction="top">
+                         {{item.time_in_mili | date:'yyyy-MM-dd HH:mm:ss'}}
+                    </md-tooltip>
+                         {{item.time_in_mili | dateFilter}}
+                     </span>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="right-container">
+        <div class="container-header">
+            <div class="filter">
+                <div class="event-title">
+                    Event Reminder
+                </div>
+            </div>
+        </div>
+        <ul class="events-list">
+            <li class="event-item" ng-show="events.length==0">
+                <span class="name">
+                No events starts in 7 days for now.
+                </span>
+            </li>
+            <li class="event-item"
+                ng-click="goToPage('event', event.team_id)"
+                ng-repeat="event in events | orderBy :'start'"
+                ng-class="{'isWarning': isWarning(event.start)}">
+                <span class="event-name">
+                    {{event.title}}
+                </span>
+                of
+                <span class="event-team-name">
+                    {{event.team_name}}
+                </span>
+                <br>
+                <span class="event-time">
+                    <!--Start on {{event.start | date:' HH:mm yy-MM-dd' : 'GMT-0800' | eventDateFilter}}-->
+                    Will start {{event.start | eventDateFilter}}
+                </span>
+                <br>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
