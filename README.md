@@ -25,7 +25,15 @@
 - Team Filters in overview page for notification
 - Files page allows smart search (atuo-filling file name) and different ordering options
 
-## Browse http://localhost:3000/ to see the site 
+## How to run on local
+1. Make sure that you've installed [Node.js](https://nodejs.org/)
+2. `git pull`
+3. `npm install` --- **You might need to run this command multiple times if errors occur**
+4. `gulp styles`  --- **If you are going to modify the .less files 
+run `gulp` instead of `gulp styles`
+and open a new terminal to run next step**
+5. `node app.js`
+6.  Browse http://localhost:8080/ to see the site 
 
 ## Testing accounts
 1. Email:   `test_account_1@test.com`   Password: `cmpt470`
